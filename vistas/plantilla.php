@@ -13,7 +13,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
   <title>TECHEANDE</title>
 
-  <!-- Tell the browser to be responsive to screen width -->
+  <!-- Responsive -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
   <link rel="icon" href="vistas/img/plantilla/techeande.png">
@@ -39,70 +39,21 @@ if (session_status() === PHP_SESSION_NONE) {
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
-   <!-- DataTables -->
+  <!-- DataTables -->
   <link rel="stylesheet" href="vistas/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <link rel="stylesheet" href="vistas/bower_components/datatables.net-bs/css/responsive.bootstrap.min.css">
+
+  <!-- ✅ DataTables Buttons (CSS) -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap.min.css">
 
   <!-- iCheck for checkboxes and radio inputs -->
   <link rel="stylesheet" href="vistas/plugins/iCheck/all.css">
 
-   <!-- Daterange picker -->
+  <!-- Daterange picker -->
   <link rel="stylesheet" href="vistas/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 
   <!-- Morris chart -->
   <link rel="stylesheet" href="vistas/bower_components/morris.js/morris.css">
-
-  <!--=====================================
-  PLUGINS DE JAVASCRIPT
-  ======================================-->
-
-  <!-- jQuery 3 -->
-  <script src="vistas/bower_components/jquery/dist/jquery.min.js"></script>
-  
-  <!-- Bootstrap 3.3.7 -->
-  <script src="vistas/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-  <!-- FastClick -->
-  <script src="vistas/bower_components/fastclick/lib/fastclick.js"></script>
-  
-  <!-- AdminLTE App -->
-  <script src="vistas/dist/js/adminlte.min.js"></script>
-
-  <!-- DataTables -->
-  <script src="vistas/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-  <script src="vistas/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-  <script src="vistas/bower_components/datatables.net-bs/js/dataTables.responsive.min.js"></script>
-  <script src="vistas/bower_components/datatables.net-bs/js/responsive.bootstrap.min.js"></script>
-
-  <!-- SweetAlert 2 -->
-  <script src="vistas/plugins/sweetalert2/sweetalert2.all.js"></script>
-   <!-- By default SweetAlert2 doesn't support IE. To enable IE 11 support, include Promise polyfill:-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
-
-  <!-- iCheck 1.0.1 -->
-  <script src="vistas/plugins/iCheck/icheck.min.js"></script>
-
-  <!-- InputMask -->
-  <script src="vistas/plugins/input-mask/jquery.inputmask.js"></script>
-  <script src="vistas/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-  <script src="vistas/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-
-  <!-- jQuery Number -->
-  <script src="vistas/plugins/jqueryNumber/jquerynumber.min.js"></script>
-
-  <!-- daterangepicker http://www.daterangepicker.com/-->
-  <script src="vistas/bower_components/moment/min/moment.min.js"></script>
-  <script src="vistas/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-
-  <!-- Morris.js charts http://morrisjs.github.io/morris.js/-->
-  <script src="vistas/bower_components/raphael/raphael.min.js"></script>
-  <script src="vistas/bower_components/morris.js/morris.min.js"></script>
-
-  <!-- ChartJS http://www.chartjs.org/-->
-  <script src="vistas/bower_components/Chart.js/Chart.js"></script>
-
-
-
 
 </head>
 
@@ -121,69 +72,119 @@ CUERPO DOCUMENTO
     /*=============================================
     CABEZOTE
     =============================================*/
-
     include "modulos/cabezote.php";
 
     /*=============================================
     MENU
     =============================================*/
-
     include "modulos/menu.php";
 
     /*=============================================
     CONTENIDO
     =============================================*/
+    $rutasSeguras = [
+      "inicio",
+      "usuarios",
+      "categorias",
+      "productos",
+      "clientes",
+      "ventas",
+      "crear-venta",
+      "editar-venta",
+      "reportes",
+      "salir"
+    ];
 
-$rutasSeguras = [
-  "inicio",
-  "usuarios",
-  "categorias",
-  "productos",
-  "clientes",
-  "ventas",
-  "crear-venta",
-  "editar-venta",
-  "reportes",
-  "salir"
-];
+    if (isset($_GET["ruta"])) {
+      $ruta = basename($_GET["ruta"]); 
 
-if (isset($_GET["ruta"])) {
-  $ruta = basename($_GET["ruta"]); 
-
-  if (in_array($ruta, $rutasSeguras)) {
-    include "modulos/" . $ruta . ".php";
-  } else {
-    include "modulos/404.php";
-  }
-} else {
-  include "modulos/inicio.php";
-}
-
+      if (in_array($ruta, $rutasSeguras)) {
+        include "modulos/" . $ruta . ".php";
+      } else {
+        include "modulos/404.php";
+      }
+    } else {
+      include "modulos/inicio.php";
+    }
 
     /*=============================================
     FOOTER
     =============================================*/
-
     include "modulos/footer.php";
 
     echo '</div>';
 
   }else{
-
     include "modulos/login.php";
-
   }
-
   ?>
 
+  <!--=====================================
+  PLUGINS DE JAVASCRIPT
+  ======================================-->
 
-<script src="vistas/js/plantilla.js"></script>
-<script src="vistas/js/usuarios.js"></script>
-<script src="vistas/js/categorias.js"></script>
-<script src="vistas/js/productos.js"></script>
-<script src="vistas/js/clientes.js"></script>
-<script src="vistas/js/ventas.js"></script>
-<script src="vistas/js/reportes.js"></script>
+  <!-- jQuery -->
+  <script src="vistas/bower_components/jquery/dist/jquery.min.js"></script>
+  
+  <!-- Bootstrap -->
+  <script src="vistas/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <!-- FastClick -->
+  <script src="vistas/bower_components/fastclick/lib/fastclick.js"></script>
+  
+  <!-- AdminLTE -->
+  <script src="vistas/dist/js/adminlte.min.js"></script>
+
+  <!-- DataTables -->
+  <script src="vistas/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="vistas/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+  <script src="vistas/bower_components/datatables.net-bs/js/dataTables.responsive.min.js"></script>
+  <script src="vistas/bower_components/datatables.net-bs/js/responsive.bootstrap.min.js"></script>
+
+  <!--  DataTables Buttons (JS + dependencias) -->
+  <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+
+  <!-- iCheck -->
+  <script src="vistas/plugins/iCheck/icheck.min.js"></script>
+
+  <!-- InputMask -->
+  <script src="vistas/plugins/input-mask/jquery.inputmask.js"></script>
+  <script src="vistas/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+  <script src="vistas/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+
+  <!-- jQuery Number -->
+  <script src="vistas/plugins/jqueryNumber/jquerynumber.min.js"></script>
+
+  <!-- Daterangepicker -->
+  <script src="vistas/bower_components/moment/min/moment.min.js"></script>
+  <script src="vistas/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+  <!-- Morris -->
+  <script src="vistas/bower_components/raphael/raphael.min.js"></script>
+  <script src="vistas/bower_components/morris.js/morris.min.js"></script>
+
+  <!-- ChartJS -->
+  <script src="vistas/bower_components/Chart.js/Chart.js"></script>
+
+  <!-- Tus scripts -->
+  <script src="vistas/js/plantilla.js"></script>
+  <script src="vistas/js/usuarios.js"></script>
+  <script src="vistas/js/categorias.js"></script>
+  <script src="vistas/js/productos.js"></script>
+  <script src="vistas/js/clientes.js"></script>
+  <script src="vistas/js/ventas.js"></script>
+  <script src="vistas/js/reportes.js"></script>
 
 </body>
 </html>
